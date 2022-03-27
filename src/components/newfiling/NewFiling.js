@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from 'react'
 import { API_BASE_URL } from "../../config/constant";
 import { UserContext } from "../../App";
 import axios from 'axios';
-import { Button } from 'react-bootstrap';
 import './NewFiling.css'
 
 function NewFiling() {
@@ -12,6 +11,7 @@ function NewFiling() {
     const [items, setItems] = useState([]);
     const [fy, setFy] = useState();
     const [fyType, setFyType] = useState();
+    const [filingType, setFilingType] = useState();
 
     const getCurrentFiscalYear = (type) => {
         setFyType(type);
@@ -28,7 +28,6 @@ function NewFiling() {
     }
 
     const getFilingDetails = (fyData, nfGstr1)=>{
-        
         const config = {
             headers: {
                 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
@@ -40,7 +39,6 @@ function NewFiling() {
             axios.get(`${API_BASE_URL}/api/gst/get-filing-det/${state.userData.id}?fy=${getCurrentFiscalYear(fyData)}&nfGstr1=${nfGstr1}`, config)
                 .then((items) => {
                     setItems(items.data);
-                    console.log(items);
                     setLoading(false);
 
                 })
@@ -53,6 +51,7 @@ function NewFiling() {
 
     }
     useEffect(()=>{
+        setFilingType("YES")
         getFilingDetails("C", "BOTH");
     }, []);
 
@@ -70,34 +69,36 @@ function NewFiling() {
                         </div>
                         <div className="col-md-2 col-sm-12 pt-3 border-primary">
                             <div className="d-grid">
-                            <button className="btn btn-primary" onClick={()=>{getFilingDetails('C', "BOTH")}}>Current FY</button>
+                            <button className="btn btn-warning" onClick={()=>{getFilingDetails('C', "BOTH")}}>Current FY</button>
                             </div>
                         </div>
                         <div className="col-md-2 col-sm-12 pt-3 border-primary">
                         <div className="d-grid">
-                            <button className="btn btn-primary" onClick={()=>{getFilingDetails('P', "BOTH")}}>Previous FY</button>
+                            <button className="btn btn-warning" onClick={()=>{getFilingDetails('P', "BOTH")}}>Previous FY</button>
                             </div>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-4 col-sm-12 pt-3 border-primary">
-                            <div className="d-grid">
-                                <button className="btn btn-primary" onClick={()=>{getFilingDetails(fyType, "YES")}}>GSTR1 Not Filed</button>
-                            </div>
+                            <h5 className='ms-3'>Filter by GST Type</h5>
+                        </div>
+                        <div className="col-md-4 col-sm-12 pt-3 border-primary">
+                            <select onChange={(event) => setFilingType(event.target.value)} className="form-select" value={filingType}>
+                                <option value="YES">One or more GSTR1 Not Filed</option>
+                                <option value="NO">All months GSTR1 Filed</option>
+                                <option value="BOTH">Both GSTR1 Filed and Not Filed</option>
+                            </select>
                         </div>
                         <div className="col-md-4 col-sm-12 pt-3 border-primary">
                             <div className="d-grid">
-                                <button className="btn btn-primary" onClick={()=>{getFilingDetails(fyType, "NO")}}>GSTR1 All File</button>
-                            </div>
-                        </div>
-                        <div className="col-md-4 col-sm-12 pt-3 border-primary">
-                            <div className="d-grid">
-                                <button className="btn btn-primary" onClick={()=>{getFilingDetails(fyType, "BOTH")}}>GSTR1 Filed Not Filed Both</button>
+                                <button className="btn btn-success" onClick={()=>{getFilingDetails(fyType, filingType)}}>Filter</button>
                             </div>
                         </div>
                     </div>
                     <hr />
-                    <table className="table table-striped">
+                    {
+                        items.length == 0 ? <h3>No Data Found</h3> :
+                    <table className="table table-striped table-responsive">
                         <thead>
                             <tr>
                                 <th>Firm Name</th>
@@ -130,7 +131,7 @@ function NewFiling() {
 
                         </tbody>
                     </table>
-
+                    }
                 </div>
             </div>
             

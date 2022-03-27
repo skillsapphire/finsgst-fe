@@ -19,6 +19,8 @@ import SearchFiling from './components/filing/SearchFiling';
 import ViewAllFilings from './components/filing/ViewAllFilings';
 import NewFiling from './components/newfiling/NewFiling';
 import FilingReport from './components/report/FilingReport';
+import UpdatePassword from './components/profile/UpdatePassword';
+import UpdateProfile from './components/profile/UpdateProfile';
 
 export const UserContext = createContext();
 
@@ -66,13 +68,15 @@ const CustomRouting = () => {
       <Route exact path="/" element={<Home />} />
       <Route exact path="/filing" element={<NewFiling />} />
       <Route exact path="/filing/search" element={<SearchFiling />} />
-      <Route exact path="/sales" element={<Sales />} />
+      {/* <Route exact path="/sales" element={<Sales />} /> */}
       {/* <Route exact path="/purchase" element={<Purchase />} /> */}
       <Route exact path="/reports" element={<FilingReport />} />
       <Route exact path="/manage" element={<ManageAccounts />} />
       <Route exact path="/manage/edit/:id" element={<ManageAccounts />} />
       <Route exact path="/manage/view" element={<ViewAccounts />} />
       <Route exact path="/manage/view/:id" element={<ViewAccountDetail />} />
+      <Route exact path="profile/edit-password" element={<UpdatePassword />} />
+      {/* <Route exact path="profile/edit" element={<UpdateProfile />} /> */}
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/filing/detail/:gstNo" element={<FilingDetail />} />
     </Routes>

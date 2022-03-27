@@ -20,9 +20,9 @@ const NavBar = () => {
                 <li key="919" className="nav-item">
                     <NavLink className="nav-link" to="/filing">Filing</NavLink>
                 </li>,
-                <li key="918" className="nav-item">
-                    <NavLink className="nav-link" to="/sales">Sales</NavLink>
-                </li>,
+                // <li key="918" className="nav-item">
+                //     <NavLink className="nav-link" to="/sales">Sales</NavLink>
+                // </li>,
                 // <li key="917" className="nav-item">
                 //     <NavLink className="nav-link" to="/purchase">Purchase</NavLink>
                 // </li>,
@@ -33,7 +33,9 @@ const NavBar = () => {
                     <NavLink className="nav-link" to="/manage/view">Manage</NavLink>
                 </li>,
                 <li key="916" className="nav-item">
-                    <button onClick={() => { logout() }} className="nav-link btn btn-primary btn-sm">Logout</button>
+                    <button onClick={() => { logout() }} className="nav-link btn btn-primary btn-sm">
+                        <i className="fa-solid fa-right-from-bracket"></i>
+                    </button>
                 </li>
             ]
         } else {
