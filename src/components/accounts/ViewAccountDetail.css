@@ -1,0 +1,9 @@
+.viewaccount-container{
+    width: 50vw;
+}
+
+@media (max-width: 768px){
+    .viewaccount-container{
+        width: 98vw;
+    }
+}

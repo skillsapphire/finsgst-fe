@@ -1,0 +1,9 @@
+.newfiling-container{
+    width: 80vw;
+}
+
+@media (max-width: 768px){
+    .newfiling-container{
+        width: 99vw;
+    }
+}

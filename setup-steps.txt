@@ -1,0 +1,10 @@
+1. Register on https://bitbucket.org/
+2. Inform me and give you email that you used for registration
+3. Step 3, clone project with below command on to your laptop
+git clone https://skillsapphire@bitbucket.org/skillsapphire/gst-fe.git
+4. Open code in VS code editor
+5. Go to ur branch-> git checkout branch-name OR by VS code
+6. Run command npm install and wait for it to finish
+7. npm start
+
+https://stackoverflow.com/questions/44114436/the-create-react-app-imports-restriction-outside-of-src-directory

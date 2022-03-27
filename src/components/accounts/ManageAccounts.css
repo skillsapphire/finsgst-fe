@@ -1,0 +1,9 @@
+.account-container{
+    width: 80vw;
+}
+
+@media (max-width: 768px){
+    .account-container{
+        width: 99vw;
+    }
+}

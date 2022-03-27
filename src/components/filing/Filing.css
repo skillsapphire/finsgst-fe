@@ -1,0 +1,15 @@
+.filing-container{
+    width: 80vw;
+}
+
+.filing-details-container{
+    width: 60vw;
+}
+@media (max-width: 768px){
+    .filing-container{
+        width: 98vw;
+    }
+    .filing-details-container{
+        width: 100vw;
+    }
+}

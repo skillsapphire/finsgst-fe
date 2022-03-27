@@ -1,0 +1,9 @@
+.home-container{
+    width: 80vw;
+}
+
+@media (max-width: 768px){
+    .home-container{
+        width: 98vw;
+    }
+}
