@@ -75,7 +75,11 @@ function FilingReport() {
                     link.setAttribute('download', fileName); //or any other extension
                     document.body.appendChild(link);
                     link.click();
-                });
+                    setLoading(false);
+                }).catch((error) => {
+                    setLoading(false);
+                    console.log(error);
+                })
 
         }
 
