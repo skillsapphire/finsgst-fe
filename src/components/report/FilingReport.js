@@ -14,23 +14,18 @@ function FilingReport() {
     const [returnType, setReturnType] = useState("BOTH");
     const [lastRefreshedMasterData, setLastRefreshedMasterData] = useState()
 
-    const formatLastRefreshedDate = (date) => {
-        let formattedDate = new Date(date);
-        return formattedDate.toLocaleDateString() + '@' + formattedDate.toLocaleTimeString();
-    }
-
     const getFiscalYears = () => {
         setFiscalYears([]);
         var dateObj = new Date();
         var month = dateObj.getUTCMonth() + 1; //months from 1-12
         var year = dateObj.getUTCFullYear();
-        
-        if(month <= 3) {
-            year = year - 1 ;
+
+        if (month <= 3) {
+            year = year - 1;
         }
         setFy(year);
         setFiscalYears(prevArray => [...prevArray, year]);
-        setFiscalYears(prevArray => [...prevArray, year-1]);
+        setFiscalYears(prevArray => [...prevArray, year - 1]);
 
         console.log(fiscalYears);
     }
@@ -46,7 +41,7 @@ function FilingReport() {
             //API call to get logged in user information
             axios.get(`${API_BASE_URL}/api/currentUser`, config)
                 .then((userData) => {
-                    setLastRefreshedMasterData(formatLastRefreshedDate(userData.data.lastRefreshed));
+                    setLastRefreshedMasterData(userData.data.lastRefreshedFormatted);
                     setLoading(false);
                 })
                 .catch((error) => {
@@ -94,7 +89,11 @@ function FilingReport() {
             <div className='row p-4'>
                 <div className='col-md-12 col-sm-12'>
                     <h2 className='mb-3'>Generate Report</h2>
-                    <h5 className='text-danger fw-bold mb-3'>Master Data Last Refreshed: {lastRefreshedMasterData}</h5>
+                    {loading ? <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                        : <h5 className='text-danger fw-bold mb-3'>Master Data Last Refreshed: {lastRefreshedMasterData}</h5>
+                    }
                     <hr />
                 </div>
                 <div className='col-md-3 col-sm-12 mb-2'>
@@ -119,7 +118,7 @@ function FilingReport() {
                                 <option key={index}>{year}</option>
                             ))
                         }
-                        
+
                     </select>
                 </div>
                 <div className='col-md-3 col-sm-12 mb-4'>

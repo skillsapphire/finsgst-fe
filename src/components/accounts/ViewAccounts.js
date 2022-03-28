@@ -12,12 +12,7 @@ function ViewAccounts() {
     const [loading, setLoading] = useState(false);
     const [lastRefreshedMasterData, setLastRefreshedMasterData] = useState()
 
-    const formatLastRefreshedDate = (date) => {
-        let formattedDate = new Date(date);
-        return formattedDate.toLocaleDateString() + '@' + formattedDate.toLocaleTimeString();
-    }
-
-    const refreshGSTData = ()=>{
+    const refreshGSTData = () => {
         setLoading(true);
         const config = {
             headers: {
@@ -30,14 +25,14 @@ function ViewAccounts() {
                 .then((response) => {
                     //API call to get logged in user information
                     axios.get(`${API_BASE_URL}/api/currentUser`, config)
-                    .then((userData) => {
-                        setLastRefreshedMasterData(formatLastRefreshedDate(userData.data.lastRefreshed));
-                        setLoading(false);
-                    })
-                    .catch((error) => {
-                        setLoading(false);
-                        console.log(error);
-                    })
+                        .then((userData) => {
+                            setLastRefreshedMasterData(userData.data.lastRefreshedFormatted);
+                            setLoading(false);
+                        })
+                        .catch((error) => {
+                            setLoading(false);
+                            console.log(error);
+                        })
                     setLoading(false);
 
                 })
@@ -70,16 +65,16 @@ function ViewAccounts() {
 
             //API call to get logged in user information
             axios.get(`${API_BASE_URL}/api/currentUser`, config)
-            .then((userData) => {
-                setLastRefreshedMasterData(formatLastRefreshedDate(userData.data.lastRefreshed));
-                setLoading(false);
-            })
-            .catch((error) => {
-                setLoading(false);
-                console.log(error);
-            })
+                .then((userData) => {
+                    setLastRefreshedMasterData(userData.data.lastRefreshedFormatted);
+                    setLoading(false);
+                })
+                .catch((error) => {
+                    setLoading(false);
+                    console.log(error);
+                })
         }
-        
+
     }
 
     useEffect(() => {
@@ -124,7 +119,7 @@ function ViewAccounts() {
                             <h6 className='text-danger fw-bold mb-3'>Master Data Last Refreshed: {lastRefreshedMasterData}</h6>
                         </div>
                         <div className="col-md-3">
-                            <button onClick={()=>refreshGSTData()} className='btn btn-danger'>Refresh Data for All GST No. </button>
+                            <button onClick={() => refreshGSTData()} className='btn btn-danger'>Refresh Data for All GST No. </button>
                         </div>
                     </div>
                     <hr />
