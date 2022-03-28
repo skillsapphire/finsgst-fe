@@ -30,6 +30,7 @@ function ViewAccounts() {
                             setLoading(false);
                         })
                         .catch((error) => {
+                            alert("Error while updating Last Data Refresh Time");
                             setLoading(false);
                             console.log(error);
                         })
@@ -37,6 +38,7 @@ function ViewAccounts() {
 
                 })
                 .catch((error) => {
+                    alert("Error while getting Govt. GST Data");
                     setLoading(false);
                     console.log(error);
                 })
