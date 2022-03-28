@@ -20,9 +20,9 @@ const NavBar = () => {
                 <li key="919" className="nav-item">
                     <NavLink className="nav-link" to="/filing">Filing</NavLink>
                 </li>,
-                <li key="918" className="nav-item">
-                    <NavLink className="nav-link" to="/sales">Sales</NavLink>
-                </li>,
+                // <li key="918" className="nav-item">
+                //     <NavLink className="nav-link" to="/sales">Sales</NavLink>
+                // </li>,
                 // <li key="917" className="nav-item">
                 //     <NavLink className="nav-link" to="/purchase">Purchase</NavLink>
                 // </li>,
@@ -33,7 +33,9 @@ const NavBar = () => {
                     <NavLink className="nav-link" to="/manage/view">Manage</NavLink>
                 </li>,
                 <li key="916" className="nav-item">
-                    <button onClick={() => { logout() }} className="nav-link btn btn-primary btn-sm">Logout</button>
+                    <button onClick={() => { logout() }} className="nav-link btn btn-primary btn-sm">
+                        <i className="fa-solid fa-right-from-bracket"></i>
+                    </button>
                 </li>
             ]
         } else {
@@ -49,7 +51,7 @@ const NavBar = () => {
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary bg-gradient">
                 <div className="container-fluid">
-                    <NavLink className="navbar-brand" to="/">GST App</NavLink>
+                    <NavLink className="navbar-brand" to="/">GST Filing</NavLink>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>

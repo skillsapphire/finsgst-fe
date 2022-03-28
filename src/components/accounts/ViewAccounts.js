@@ -12,7 +12,7 @@ function ViewAccounts() {
     const [loading, setLoading] = useState(false);
     const [lastRefreshedMasterData, setLastRefreshedMasterData] = useState()
 
-    const refreshGSTData = ()=>{
+    const refreshGSTData = () => {
         setLoading(true);
         const config = {
             headers: {
@@ -25,14 +25,14 @@ function ViewAccounts() {
                 .then((response) => {
                     //API call to get logged in user information
                     axios.get(`${API_BASE_URL}/api/currentUser`, config)
-                    .then((userData) => {
-                        setLastRefreshedMasterData(userData.data.lastRefreshed);
-                        setLoading(false);
-                    })
-                    .catch((error) => {
-                        setLoading(false);
-                        console.log(error);
-                    })
+                        .then((userData) => {
+                            setLastRefreshedMasterData(userData.data.lastRefreshedFormatted);
+                            setLoading(false);
+                        })
+                        .catch((error) => {
+                            setLoading(false);
+                            console.log(error);
+                        })
                     setLoading(false);
 
                 })
@@ -65,16 +65,16 @@ function ViewAccounts() {
 
             //API call to get logged in user information
             axios.get(`${API_BASE_URL}/api/currentUser`, config)
-            .then((userData) => {
-                setLastRefreshedMasterData(userData.data.lastRefreshed);
-                setLoading(false);
-            })
-            .catch((error) => {
-                setLoading(false);
-                console.log(error);
-            })
+                .then((userData) => {
+                    setLastRefreshedMasterData(userData.data.lastRefreshedFormatted);
+                    setLoading(false);
+                })
+                .catch((error) => {
+                    setLoading(false);
+                    console.log(error);
+                })
         }
-        
+
     }
 
     useEffect(() => {
@@ -111,9 +111,17 @@ function ViewAccounts() {
                 <span className="visually-hidden">Loading...</span>
             </div> : <div className="card">
                 <div className="card-body table-responsive">
-                    <h4 className='p-3'>All your GST Accounts</h4>
-                    <h5 className='text-danger fw-bold mb-3'>Master Data Last Refreshed: {lastRefreshedMasterData}</h5>
-                    <button onClick={()=>refreshGSTData()} className='btn btn-danger'>Refresh Data for All GST No. </button>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <h4 className='p-3'>All your GST Accounts</h4>
+                        </div>
+                        <div className="col-md-3">
+                            <h6 className='text-danger fw-bold mb-3'>Master Data Last Refreshed: {lastRefreshedMasterData}</h6>
+                        </div>
+                        <div className="col-md-3">
+                            <button onClick={() => refreshGSTData()} className='btn btn-danger'>Refresh Data for All GST No. </button>
+                        </div>
+                    </div>
                     <hr />
                     <table className="table table-striped">
                         <thead>
