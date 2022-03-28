@@ -13,7 +13,6 @@ function ViewAccounts() {
     const [lastRefreshedMasterData, setLastRefreshedMasterData] = useState()
 
     const refreshGSTData = () => {
-        setLoading(true);
         const config = {
             headers: {
                 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
@@ -24,22 +23,23 @@ function ViewAccounts() {
             axios.get(`${API_BASE_URL}/api/gst/refresh-master-data/${state.userData.id}`, config)
                 .then((response) => {
                     //API call to get logged in user information
-                    axios.get(`${API_BASE_URL}/api/currentUser`, config)
+                    /*axios.get(`${API_BASE_URL}/api/currentUser`, config)
                         .then((userData) => {
                             setLastRefreshedMasterData(userData.data.lastRefreshedFormatted);
                             setLoading(false);
                         })
                         .catch((error) => {
+                            alert("Error while updating Last Data Refresh Time");
                             setLoading(false);
                             console.log(error);
-                        })
-                    setLoading(false);
+                        })*/
 
                 })
                 .catch((error) => {
-                    setLoading(false);
+                    //alert("Error while getting Govt. GST Data");
                     console.log(error);
                 })
+            alert("Process Started, We will email you once Refresh is completed!");
         }
     }
 
