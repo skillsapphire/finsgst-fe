@@ -21,8 +21,9 @@ function NewFiling() {
         var year = dateObj.getUTCFullYear();
         if (month <= 3) {
             year = year - 1;
-            if (type === 'P')
-                year = year - 1;
+        }
+        if (type === 'P') {
+            year = year - 1;
         }
         setFy(year);
         return year;

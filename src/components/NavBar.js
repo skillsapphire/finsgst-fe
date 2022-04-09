@@ -51,7 +51,7 @@ const NavBar = () => {
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary bg-gradient">
                 <div className="container-fluid">
-                    <NavLink className="navbar-brand" to="/">GST Filing</NavLink>
+                    <NavLink className="navbar-brand" to="/">GST Tracker</NavLink>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>

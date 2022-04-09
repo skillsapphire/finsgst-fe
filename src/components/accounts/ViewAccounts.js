@@ -10,9 +10,60 @@ function ViewAccounts() {
     const { state, dispatch } = useContext(UserContext);
     const [accounts, setAccounts] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [lastRefreshedMasterData, setLastRefreshedMasterData] = useState()
+    let accountList = [];
+    const [fy, setFy] = useState();
+    const [fiscalYears, setFiscalYears] = useState([]);
+    const [returnType, setReturnType] = useState("BOTH");
 
-    const refreshGSTData = () => {
+    const selectAccount = (accountId) => {
+        var accountAll = document.getElementById('account-all');
+        if (accountId === '000') {
+            accountList = [];
+        }
+        if (accountId === '000' && accountAll.checked) {
+            for (var i = 0; i < accounts.length; i++) {
+                document.getElementById('account-' + accounts[i].id).checked = true;
+                accountList.push(accounts[i].id);
+            }
+        } else if (accountId === '000' && !accountAll.checked) {
+            var accList = document.getElementsByClassName('account-all');
+            for (var i = 0; i < accList.length; i++) {
+                accList[i].checked = false;
+            }
+            accountList = [];
+        }
+        else {
+            var account = document.getElementById('account-' + accountId);
+            if (account.checked) {
+                accountList.push(accountId);
+            } else {
+                for (var i = 0; i < accountList.length; i++) {
+                    if (accountList[i] === accountId) {
+                        accountList.splice(i, 1);
+                    }
+                }
+            }
+        }
+        console.log(accountList);
+    }
+    const getFiscalYears = () => {
+        setFiscalYears([]);
+        var dateObj = new Date();
+        var month = dateObj.getUTCMonth() + 1; //months from 1-12
+        var year = dateObj.getUTCFullYear();
+
+        if (month <= 3) {
+            year = year - 1;
+        }
+        setFy(year);
+        setFiscalYears(prevArray => [...prevArray, year]);
+        setFiscalYears(prevArray => [...prevArray, year - 1]);
+
+        console.log(fiscalYears);
+    }
+
+    const refreshFilteredGSTData = () => {
+        setLoading(true);
         const config = {
             headers: {
                 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
@@ -20,25 +71,15 @@ function ViewAccounts() {
         };
         if (state) {
             //This CA is refreshing All GST no. Filling information from Govt API
-            axios.get(`${API_BASE_URL}/api/gst/refresh-master-data/${state.userData.id}`, config)
+            axios.get(`${API_BASE_URL}/api/gst/refresh-master-data-with-filter/${state.userData.id}?accounts=${accountList}&fy=${fy}&type=${returnType}`, config)
                 .then((response) => {
-                    //API call to get logged in user information
-                    /*axios.get(`${API_BASE_URL}/api/currentUser`, config)
-                        .then((userData) => {
-                            setLastRefreshedMasterData(userData.data.lastRefreshedFormatted);
-                            setLoading(false);
-                        })
-                        .catch((error) => {
-                            alert("Error while updating Last Data Refresh Time");
-                            setLoading(false);
-                            console.log(error);
-                        })*/
-
+                    getAllAccounts();
+                    setLoading(false);
                 })
                 .catch((error) => {
-                    //alert("Error while getting Govt. GST Data");
+                    setLoading(false);
                     console.log(error);
-                })
+                });
             alert("Process Started, We will email you once Refresh is completed!");
         }
     }
@@ -66,7 +107,6 @@ function ViewAccounts() {
             //API call to get logged in user information
             axios.get(`${API_BASE_URL}/api/currentUser`, config)
                 .then((userData) => {
-                    setLastRefreshedMasterData(userData.data.lastRefreshedFormatted);
                     setLoading(false);
                 })
                 .catch((error) => {
@@ -79,62 +119,83 @@ function ViewAccounts() {
 
     useEffect(() => {
         getAllAccounts();
+        getFiscalYears();
     }, []);
-
-    /*useEffect(() => {
-        console.log(state);
-        //On load of view accounts fetach all gst accounts from API for this CA
-        axios.get(`${API_BASE_URL}/api/gst/accounts/${state.userData.id}?pageNo=0&pageSize=50000`, config)
-            .then((accounts) => {
-                //debugger;
-                setLoading(false);
-    
-            })
-            .catch((error) => {
-                setLoading(false);
-                console.log(error);
-            })
-    }, []);*/
 
     return (
         <div className='account-container mx-auto text-center p-3 mt-3'>
             <div className='row mb-2'>
                 <div className='col-sm-6 col-md-3'>
                     <NavLink className="nav-link" to="/manage/view">View Accounts</NavLink>
-
                 </div>
                 <div className='col-sm-6 col-md-3'>
                     <NavLink className="nav-link" to="/manage">Add Account</NavLink>
                 </div>
             </div>
-            {loading ? <div className="spinner-border text-primary" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div> : <div className="card">
+            <div className="card">
                 <div className="card-body table-responsive">
                     <div className="row">
-                        <div className="col-md-6">
+                        <div className="col-md-12 col-sm-12">
                             <h4 className='p-3'>All your GST Accounts</h4>
                         </div>
-                        <div className="col-md-3">
-                            <h6 className='text-danger fw-bold mb-3'>Master Data Last Refreshed: {lastRefreshedMasterData}</h6>
+                        <div className='col-md-4 col-sm-12 mb-4'>
+                            <select onChange={(event) => setReturnType(event.target.value)} className="form-select" value={returnType}>
+                                <option value="GSTR1">GSTR1</option>
+                                <option value="GSTR3B">GSTR3B</option>
+                                <option value="BOTH">Both</option>
+                            </select>
                         </div>
-                        <div className="col-md-3">
-                            <button onClick={() => refreshGSTData()} className='btn btn-danger'>Refresh Data for All GST No. </button>
+                        <div className='col-md-4 col-sm-12 mb-2'>
+                            <select onChange={(event) => setFy(event.target.value)} className="form-select" value={fy}>
+                                {
+                                    fiscalYears.map((year, index) => (
+                                        <option key={index}>{year}</option>
+                                    ))
+                                }
+
+                            </select>
                         </div>
+                        <div className='col-md-4 col-sm-12'>
+                            {loading ? "" : <div className='d-grid'>
+                                <button className='btn btn-danger' onClick={() => refreshFilteredGSTData()}>Refresh Master
+                                </button>
+                            </div>}
+                        </div>
+                    </div>
+                    <div className='col-12'>
+                        {loading ? <div className="spinner-border text-primary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div> : ""}
                     </div>
                     <hr />
                     <table className="table table-striped">
                         <thead>
                             <tr>
+                                <th>All
+                                    <div className="form-check">
+                                        <input id='account-all'
+                                            onChange={() => selectAccount('000')} className="form-check-input" type="checkbox" value="" />
+                                    </div>
+                                </th>
+                                <th>#</th>
                                 <th>Contact Name</th>
                                 <th>Firm Name</th>
                                 <th>GST Number</th>
+                                <th>Last Refreshed({fiscalYears[0]})</th>
+                                <th>Last Refreshed({fiscalYears[1]})</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 accounts.map((account, index) => (
                                     <tr key={index}>
+                                        <td>
+                                            <div className="form-check">
+                                                <input id={`account-${account.id}`}
+                                                    onChange={() => selectAccount(account.id)} className="form-check-input account-all" type="checkbox" value="" />
+                                            </div>
+                                        </td>
+                                        <td>{index + 1}</td>
                                         <td>{account.contactPerson}</td>
                                         <td>{account.firmName}</td>
                                         <td>
@@ -145,6 +206,12 @@ function ViewAccounts() {
                                             <Link to={`/users/edit/${account.id}`} className="btn btn-outline-info me-2">Edit</Link>
                                             <Button onClick={() => deleteUser(account.id)} variant="danger">Delete</Button>
                                         </td>*/}
+                                        <td>
+                                            {account.lastRefreshedCurrFyFormatted}
+                                        </td>
+                                        <td>
+                                            {account.lastRefreshedPrevFyFormatted}
+                                        </td>
                                     </tr>
                                 ))
 
@@ -164,7 +231,7 @@ function ViewAccounts() {
                     </table>
 
                 </div>
-            </div>}
+            </div>
         </div>
     )
 }

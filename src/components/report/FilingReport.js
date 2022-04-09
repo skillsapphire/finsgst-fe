@@ -85,7 +85,6 @@ function FilingReport() {
 
     }
     useEffect(() => {
-        loadLastRefreshData();
         getFiscalYears();
     }, []);
     return (
@@ -96,8 +95,7 @@ function FilingReport() {
                     {loading ? <div className="spinner-border text-primary" role="status">
                         <span className="visually-hidden">Loading...</span>
                     </div>
-                        : <h5 className='text-danger fw-bold mb-3'>Master Data Last Refreshed: {lastRefreshedMasterData}</h5>
-                    }
+                        : ""}
                     <hr />
                 </div>
                 <div className='col-md-3 col-sm-12 mb-2'>

@@ -33,7 +33,7 @@ function SearchFiling() {
             <h4 className='p-2'>Search for GST Filing</h4>
             <div className='row'>
                 <div className='col-md-12 col-sm-12 mb-3'>
-                    <input type="text" class="form-control" placeholder="Enter GST Number" />
+                    <input type="text" className="form-control" placeholder="Enter GST Number" />
                 </div>
                 <div className='col-sm-6 col-md-6 mb-3 mb-3'>
                     <div className='d-flex justify-content-between'>

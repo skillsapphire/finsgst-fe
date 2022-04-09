@@ -58,10 +58,10 @@ function FilingDetail() {
                         </li>
 
                         <li className="list-group-item">
-                            <div class="accordion" id="accordionOne">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingOne">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <div className="accordion" id="accordionOne">
+                                <div className="accordion-item">
+                                    <h2 className="accordion-header" id="headingOne">
+                                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                             <div className='container'>
                                                 <div className='row'>
                                                     <div className='col-sm-12 col-md-4'>
@@ -77,8 +77,8 @@ function FilingDetail() {
                                             </div>
                                         </button>
                                     </h2>
-                                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionOne">
-                                        <div class="accordion-body">
+                                    <div id="collapseOne" className="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionOne">
+                                        <div className="accordion-body">
                                             <ul className='m-0 p-0'>
                                                 {gstDetails[0].filingDetails.map((fd, index) => {
                                                     return <li className="list-group-item">
@@ -95,10 +95,10 @@ function FilingDetail() {
                             </div>
                         </li>
                         <li className="list-group-item">
-                            <div class="accordion" id="accordionTwo">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingTwo">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                            <div className="accordion" id="accordionTwo">
+                                <div className="accordion-item">
+                                    <h2 className="accordion-header" id="headingTwo">
+                                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                                             <div className='container'>
                                                 <div className='row'>
                                                     <div className='col-sm-12 col-md-4'>
@@ -114,8 +114,8 @@ function FilingDetail() {
                                             </div>
                                         </button>
                                     </h2>
-                                    <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionTwo">
-                                        <div class="accordion-body">
+                                    <div id="collapseTwo" className="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionTwo">
+                                        <div className="accordion-body">
                                             <ul className='m-0 p-0'>
                                                 {gstDetails[1].filingDetails.map((fd, index) => {
                                                     return <li className="list-group-item">

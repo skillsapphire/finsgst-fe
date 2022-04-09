@@ -11,7 +11,7 @@ function Home() {
     return (
         <>
             {state == null ? <div className='home-container py-5 text-center'>
-                <h3>Welcome to GST Management Application</h3>
+                <h3>Welcome to GST Filing Tracker</h3>
             </div> :
                 <div className='home-container py-5 text-center mx-auto'>
                     <h3>Welcome {state.userData.firstName} to GST Management Application</h3>
