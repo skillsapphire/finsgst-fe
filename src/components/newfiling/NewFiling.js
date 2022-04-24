@@ -19,6 +19,7 @@ function NewFiling() {
         var dateObj = new Date();
         var month = dateObj.getUTCMonth() + 1; //months from 1-12
         var year = dateObj.getUTCFullYear();
+        year = year + 1;
         if (month <= 3) {
             year = year - 1;
         }

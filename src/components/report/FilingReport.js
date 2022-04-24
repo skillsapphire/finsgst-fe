@@ -110,6 +110,7 @@ function FilingReport() {
                         <option value="NOVEMBER">November</option>
                         <option value="DECEMBER">December</option>
                         <option value="JANUARY">January</option>
+                        <option value="FEBRUARY">February</option>
                         <option value="MARCH">March</option>
                     </select>
                 </div>

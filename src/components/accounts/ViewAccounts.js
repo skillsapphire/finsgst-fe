@@ -13,7 +13,7 @@ function ViewAccounts() {
     let accountList = [];
     const [fy, setFy] = useState();
     const [fiscalYears, setFiscalYears] = useState([]);
-    const [returnType, setReturnType] = useState("BOTH");
+    const [returnType, setReturnType] = useState("GSTR1");
 
     const selectAccount = (accountId) => {
         var accountAll = document.getElementById('account-all');
@@ -55,9 +55,9 @@ function ViewAccounts() {
         if (month <= 3) {
             year = year - 1;
         }
-        setFy(year);
+        setFy(year + 1);
+        setFiscalYears(prevArray => [...prevArray, year + 1]);
         setFiscalYears(prevArray => [...prevArray, year]);
-        setFiscalYears(prevArray => [...prevArray, year - 1]);
 
         console.log(fiscalYears);
     }
@@ -142,7 +142,6 @@ function ViewAccounts() {
                             <select onChange={(event) => setReturnType(event.target.value)} className="form-select" value={returnType}>
                                 <option value="GSTR1">GSTR1</option>
                                 <option value="GSTR3B">GSTR3B</option>
-                                <option value="BOTH">Both</option>
                             </select>
                         </div>
                         <div className='col-md-4 col-sm-12 mb-2'>
