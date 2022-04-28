@@ -82,13 +82,13 @@ function NewFiling() {
                             </div>
                             <div className="row">
                                 <div className="col-md-4 col-sm-12 pt-3 border-primary">
-                                    <h5 className='ms-3'>Filter by GST Type</h5>
+                                    <h5 className='ms-3'>Filter by GSTR1 Status</h5>
                                 </div>
                                 <div className="col-md-4 col-sm-12 pt-3 border-primary">
                                     <select onChange={(event) => setFilingType(event.target.value)} className="form-select" value={filingType}>
-                                        <option value="YES">One or more GSTR1 Not Filed</option>
-                                        <option value="NO">All months GSTR1 Filed</option>
-                                        <option value="BOTH">Both GSTR1 Filed and Not Filed</option>
+                                        <option value="YES">GSTR1 Not Filed</option>
+                                        <option value="NO">GSTR1 Filed</option>
+                                        <option value="BOTH">GSTR1 Filed and Not Filed</option>
                                     </select>
                                 </div>
                                 <div className="col-md-4 col-sm-12 pt-3 border-primary">
@@ -121,13 +121,14 @@ function NewFiling() {
                                                         <td>{item.returnPeriodGstr1 == null ? "NA" : item.returnPeriodGstr1}</td>
                                                         <td>
                                                             {
+                                                                item.gstr1NotFiledPeriod == null ? "NA" :
                                                                 item.gstr1NotFiledPeriod.map((data, index1) => (
                                                                     <h6 key={index1}>{data.month}-{data.year}</h6>
                                                                 ))
                                                             }
 
                                                         </td>
-                                                        <td>{item.returnPeriodGst3b == null ? "NA" : item.returnPeriodGst3b}</td>
+                                                        <td>{item.returnPeriodGstr3b == null ? "NA" : item.returnPeriodGstr3b}</td>
                                                     </tr>
                                                 ))
 
