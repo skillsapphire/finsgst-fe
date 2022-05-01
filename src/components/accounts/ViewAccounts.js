@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import './ManageAccounts.css'
 import { Link, NavLink } from "react-router-dom";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import { API_BASE_URL } from "../../config/constant";
 import { UserContext } from "../../App";
 
@@ -80,7 +81,11 @@ function ViewAccounts() {
                     setLoading(false);
                     console.log(error);
                 });
-            alert("Process Started, We will email you once Refresh is completed!");
+            Swal.fire({
+                icon: 'info',
+                title: 'Refresh in Progress...',
+                text: 'We will email you once Refresh is completed!',
+              });
         }
     }
 
@@ -92,7 +97,7 @@ function ViewAccounts() {
             }
         };
         if (state) {
-            //On load of view accounts fetach all gst accounts from API for this CA
+            //On load of view accounts fetch all gst accounts from API for this CA
             axios.get(`${API_BASE_URL}/api/gst/accounts/${state.userData.id}?pageNo=0&pageSize=50000`, config)
                 .then((accounts) => {
                     setAccounts(accounts.data);

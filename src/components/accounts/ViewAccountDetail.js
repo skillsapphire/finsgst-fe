@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link, useParams, useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2';
 import './ViewAccountDetail.css';
 import { API_BASE_URL } from "../../config/constant";
 
@@ -21,10 +22,18 @@ function ViewAccountDetail() {
         axios.delete(`${API_BASE_URL}/api/gst/accounts/${id}`, config)
             .then((response) => {
                 setLoading(false);
-                alert("Account deleted successfully");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Account deleted successfully',
+                  });
+                
                 navigate("/manage/view");
             })
             .catch((error) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Account deleted successfully',
+                  });
                 setLoading(false);
                 console.log(error);
             });

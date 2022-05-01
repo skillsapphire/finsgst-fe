@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import "./Login.css";
 import axios from 'axios';
 import { UserContext } from "../App";
@@ -19,11 +20,19 @@ function Login() {
         event.preventDefault();
 
         if (!username) {
-            alert("Username cannot be empty");
+            Swal.fire({
+                icon: 'error',
+                title: 'Username cannot be empty.',
+                text: 'Please enter a valid username.'
+              });
             return;
         }
         if (!password) {
-            alert("Password cannot be empty");
+            Swal.fire({
+                icon: 'error',
+                title: 'Password cannot be empty.',
+                text: 'Please enter a valid password.'
+              });
             return;
         }
 
@@ -64,7 +73,11 @@ function Login() {
             })
             .catch((error) => {
                 setLoading(false);
-                alert("Incorrect username or password");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Incorrect username or password.',
+                    text: 'Please enter a valid credentials.'
+                  });
             })
 
     }

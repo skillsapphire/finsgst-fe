@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import './ManageAccounts.css'
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import { API_BASE_URL } from "../../config/constant";
 import { UserContext } from "../../App";
 
@@ -68,43 +69,73 @@ function ManageAccounts() {
         setLoading(true);
 
         if (!firmName) {
-            alert("Firm Name cannot be empty");
+            Swal.fire({
+                icon: 'error',
+                title: 'Firm Name cannot be empty.',
+              });
             return;
         }
         if (!contactPerson) {
-            alert("Contact Person cannot be empty");
+            Swal.fire({
+                icon: 'error',
+                title: 'Contact Person cannot be empty.',
+              });
             return;
         }
         if (!proprietorName) {
-            alert("Proprietor Name cannot be empty");
+            Swal.fire({
+                icon: 'error',
+                title: 'Proprietor Name cannot be empty.',
+              });
             return;
         }
         if (!gstNo) {
-            alert("GST Number cannot be empty");
+            Swal.fire({
+                icon: 'error',
+                title: 'GST Number cannot be empty.',
+              });
             return;
         }
         if (!contactNo) {
-            alert("Contact Number cannot be empty");
+            Swal.fire({
+                icon: 'error',
+                title: 'Contact Number cannot be empty.',
+              });
             return;
         }
         if (!contactEmail) {
-            alert("Contact Email cannot be empty");
+            Swal.fire({
+                icon: 'error',
+                title: 'Contact Email cannot be empty.',
+              });
             return;
         }
         if (!firmName) {
-            alert("Firm Name cannot be empty");
+            Swal.fire({
+                icon: 'error',
+                title: 'Firm Name cannot be empty.',
+              });
             return;
         }
         if (!contactPerson) {
-            alert("Contact Person cannot be empty");
+            Swal.fire({
+                icon: 'error',
+                title: 'Contact Person cannot be empty.',
+              });
             return;
         }
         if (!gstPortalUsername) {
-            alert("GST Portal Username cannot be empty");
+            Swal.fire({
+                icon: 'error',
+                title: 'GST Portal Username cannot be empty.',
+              });
             return;
         }
         if (!gstPortalPassword) {
-            alert("GST Portal Password cannot be empty");
+            Swal.fire({
+                icon: 'error',
+                title: 'GST Portal Password cannot be empty.',
+              });
             return;
         }
 
@@ -131,10 +162,19 @@ function ManageAccounts() {
             axios.put(url, requestData, config)
                 .then((response) => {
                     //console.log(response);
-                    alert("Success, Click View Accounts to see the details!")
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success, Click View Accounts to see the details!',
+                      });
+                    
                     setLoading(false);
                 })
                 .catch((error) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                      });
                     setLoading(false);
                     console.log(error);
                 });
@@ -153,7 +193,7 @@ function ManageAccounts() {
             axios.post(url, requestData, config)
                 .then((response) => {
                     //console.log(response);
-                    alert("Success, Click View Accounts to see the details!")
+                    Swal.fire("Success, Click View Accounts to see the details!")
                     setLoading(false);
                 })
                 .catch((error) => {

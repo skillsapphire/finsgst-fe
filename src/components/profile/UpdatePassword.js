@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { UserContext } from "../../App";
 import { API_BASE_URL } from "../../config/constant";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import './UpdatePassword.css'
 
 
@@ -21,7 +22,11 @@ function UpdatePassword() {
         setLoading(true);
 
         if (password !== confirmPassword) {
-            alert("Password dont match");
+            Swal.fire({
+                icon: 'error',
+                title: 'Password dont match.',
+                text: 'Please try again.'
+              });
             return;
         }
 
@@ -40,7 +45,11 @@ function UpdatePassword() {
                 .then((response) => {
                     setPassword("");
                     setConfirmPassword("");
-                    alert("Password updated successfully, Login Again!")
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Password updated successfully',
+                        text: 'You can now login with your new password'
+                      });
                     setLoading(false);
                     localStorage.clear();
                     dispatch({ type: 'LOGOUT' });

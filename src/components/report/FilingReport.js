@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { API_BASE_URL } from "../../config/constant";
 import { UserContext } from "../../App";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function FilingReport() {
 
@@ -26,8 +27,6 @@ function FilingReport() {
         setFy(year);
         setFiscalYears(prevArray => [...prevArray, year]);
         setFiscalYears(prevArray => [...prevArray, year - 1]);
-
-        console.log(fiscalYears);
     }
 
     const loadLastRefreshData = () => {
@@ -68,18 +67,24 @@ function FilingReport() {
             let url = `${API_BASE_URL}/api/gst/get-reports/${state.userData.id}?fiscalYear=${fy}&month=${month}&returnType=${returnType}`;
             axios.get(url, config)
                 .then((response) => {
-                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                    /* const url = window.URL.createObjectURL(new Blob([response.data]));
                     const link = document.createElement('a');
                     link.href = url;
                     var fileName = 'filing_report_' + month + '_' + fy + '.xlsx';
                     link.setAttribute('download', fileName); //or any other extension
                     document.body.appendChild(link);
-                    link.click();
+                    link.click(); */
+                    console.log(response.data);
                     setLoading(false);
                 }).catch((error) => {
                     setLoading(false);
                     console.log(error);
-                })
+                });
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Report generation in progress...',
+                    text: 'We will email you once its done.'
+                  });
 
         }
 
@@ -133,7 +138,7 @@ function FilingReport() {
                 </div>
                 <div className='col-md-3 col-sm-12'>
                     <div className='d-grid'>
-                        <button className='btn btn-success' onClick={() => exportExcelFilingReport()}>Download</button>
+                        <button className='btn btn-success' onClick={() => exportExcelFilingReport()}>Generate Report</button>
                     </div>
                 </div>
             </div>
