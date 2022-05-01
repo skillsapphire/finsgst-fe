@@ -31,8 +31,9 @@ function ViewAccountDetail() {
             })
             .catch((error) => {
                 Swal.fire({
-                    icon: 'success',
-                    title: 'Account deleted successfully',
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
                   });
                 setLoading(false);
                 console.log(error);

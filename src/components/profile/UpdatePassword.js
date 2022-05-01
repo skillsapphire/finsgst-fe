@@ -27,6 +27,7 @@ function UpdatePassword() {
                 title: 'Password dont match.',
                 text: 'Please try again.'
               });
+              setLoading(false);
             return;
         }
 
@@ -56,6 +57,11 @@ function UpdatePassword() {
                     navigate('/login');
                 })
                 .catch((error) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                      });
                     setLoading(false);
                     console.log(error);
                 });
