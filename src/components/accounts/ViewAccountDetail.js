@@ -101,10 +101,10 @@ function ViewAccountDetail() {
                             <h5>Contact Email</h5> <a href={`mailto:${account.email}`}> {account.email}</a>
                         </li>
                         <li className="list-group-item d-flex align-items-center justify-content-between">
-                            <h5>GST Username</h5> <span> {account.gstPortalPassword}</span>
+                            <h5>GST Username</h5> <span> {account.gstPortalUsername}</span>
                         </li>
                         <li className="list-group-item d-flex align-items-center justify-content-between">
-                            <h5>GST Password</h5> <span> {account.gstPortalUsername}</span>
+                            <h5>GST Password</h5> <span> {account.gstPortalPassword}</span>
                         </li>
                         <li className="list-group-item p-3 d-flex align-items-center justify-content-between">
                             <h5>Last updated</h5> <span> {account.creationDate}</span>
